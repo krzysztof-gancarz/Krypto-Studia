@@ -1,5 +1,5 @@
 package main.java;
-public class Box {
+public class Transformation {
     private static int box[][] ={
         {0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76},
         {0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0},
@@ -18,12 +18,56 @@ public class Box {
         {0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf},
         {0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16},
     };
+    private static int rconArray[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a};
+
     public static int change(int number) {
         int x,y;
         y=number%16;
         number=number/16;
         x=number%16;
         return box[x][y];
+    }
+
+    public static int[] changeArr(int[] w) {
+        w[0] = change(w[0]);
+        w[1] = change(w[1]);
+        w[2] = change(w[2]);
+        w[3] = change(w[3]);
+        return w;
+    }
+
+    public static int[] shiftLeft(int[] w) {
+        int a = w[0];
+        w[0] = w[1];
+        w[1] = w[2];
+        w[2] = w[3];
+        w[3] = a;
+        return w;
+    }
+
+    public static int[] shiftRight(int[] w) {
+        int a = w[0];
+        w[0] = w[3];
+        w[1] = a;
+        w[2] = w[1];
+        w[3] = w[2];
+        return w;
+    }
+
+    public static int[] rcon(int a, int b) {
+        return a ^ rconArray[b];
+    }
+    public static int[][] extendKey(int[][] key, int[] w) {
+        int[][] extendedKey = Arrays.copyOf(key, key.length + 1);
+        extendedKey[extendedKey.length - 1] = w;
+        return extendedKey;
+    }
+    public static int[] xorArr(int[] key, int[] w ) {
+        w[0] = key[0] ^ w[0];
+        w[1] = key[1] ^ w[1];
+        w[2] = key[2] ^ w[2];
+        w[3] = key[3] ^ w[3];
+        return w;
     }
 
 
