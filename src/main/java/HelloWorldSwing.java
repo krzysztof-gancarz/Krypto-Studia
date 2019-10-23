@@ -16,7 +16,7 @@ public class HelloWorldSwing {
         frame.getContentPane().add(label);
 
         //Display the window.
-        frame.pack();
+        frame.setSize(600, 400);
         frame.setVisible(true);
     }
 
