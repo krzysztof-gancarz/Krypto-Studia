@@ -1,4 +1,7 @@
 package main.java;
+
+import java.util.Arrays;
+
 public class Transformation {
     private static int box[][] ={
         {0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76},
@@ -79,7 +82,7 @@ public class Transformation {
         return w;
     }
 
-    public static int[] rcon(int a, int b) {
+    public static int rcon(int a, int b) {
         return a ^ rconArray[b];
     }
     public static int[][] extendKey(int[][] key, int[] w) {
@@ -97,7 +100,8 @@ public class Transformation {
 
     public static char[][] splitMessage(String text) {
         char a[] = text.toCharArray();
-        if(text.length()%16==0) length = text.length()/16;
+        int length;
+        if(text.length()%16==0)  length = text.length()/16;
         else length = text.length()/16 + 1;
         char[][] message = new char[length*4][4];
         for(int i=0;i<a.length/4;i++) {
@@ -111,9 +115,26 @@ public class Transformation {
         return message;
     }
 
-    public static char[] mixColumns(char[] w) {
-        
+    public static int multiply(int w, int a) {
+        if (w>=0x80)
+            if (a==2) w = (w<<1)&0xFF ^ 0x1B;
+            else w = (w<<1)&0xFF ^ 0x1B ^ w;
+        else
+            if (a==2) w = (w<<1)&0xFF;
+            else w = (w<<1)&0xFF ^ w;
         return w;
+    }
+
+    public static void mixColumns(char[] w) {
+        int[] r = new int[4];
+        r[0]= multiply((int)w[0], 2) ^ multiply((int)w[1], 3) ^ (int)w[2] ^ (int)w[3];
+        r[1]= multiply((int)w[1], 2) ^ multiply((int)w[2], 3) ^ (int)w[3] ^ (int)w[0];
+        r[2]= multiply((int)w[2], 2) ^ multiply((int)w[3], 3) ^ (int)w[0] ^ (int)w[1];
+        r[3]= multiply((int)w[3], 2) ^ multiply((int)w[0], 3) ^ (int)w[1] ^ (int)w[2];
+        w[0]= (char)r[0];
+        w[1]= (char)r[1];
+        w[2]= (char)r[2];
+        w[3]= (char)r[3];
     }
 
 }
