@@ -1,5 +1,5 @@
 package main.java;
-public class Cpiher {
+public class Cipher {
     public static char[][] encodeMessage(String text)
     {
         char[][] message = Transformation.splitMessage(text);
@@ -11,7 +11,7 @@ public class Cpiher {
             }
         }
         //rundy szyfrujace
-        for(int iteration=1;iteration<10;i++) {
+        for(int iteration=1;iteration<10;iteration++) {
             for(int i=0;i<message.length;i++) {
                 for(int j=0;j<4;j++) {
                     message[i][j] = Transformation.change(message[i][j]);
@@ -50,7 +50,7 @@ public class Cpiher {
         for(int i=0;i<message.length;i++) Transformation.mixColumns(message[i]);
         for(int i=0;i<message.length;i++) {
             for(int j=0;j<4;j++) {
-                message[i][j] = (char)((int)message[i][j] ^ key[i%4+iteration*4][j]);
+                message[i][j] = (char)((int)message[i][j] ^ key[i%4+10*4][j]);
             }
         }
         return message;
