@@ -20,6 +20,13 @@ public class Transformation {
     };
     private static int rconArray[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a};
 
+    private static int mixColumnsArray[][] = {
+        {2, 3, 1, 1},
+        {1, 2, 3, 1},
+        {1, 1, 2, 3},
+        {3, 1, 1, 2}
+    };
+
     public static int change(int number) {
         int x,y;
         y=number%16;
@@ -104,6 +111,9 @@ public class Transformation {
         return message;
     }
 
-
+    public static char[] mixColumns(char[] w) {
+        
+        return w;
+    }
 
 }
