@@ -1,9 +1,10 @@
 package main.java;
+
+import java.util.Arrays;
+
 public class Test {
     public static void main(String[] args) {
-        int tak = 0xF2;
-        tak = Box.change(tak);
-        System.out.println(tak);
-        
+        char[][] tak = new char[18][4];
+        System.out.println(tak.length + " " + tak[0].length);
     }
 }

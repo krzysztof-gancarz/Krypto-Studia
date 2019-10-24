@@ -1,16 +1,15 @@
 package main.java;
 public class KeyGen {
-    private int key[][] = {
-        {0xF2, 0x25, 0xE9, 0x5C},
-        {0x70, 0xFF, 0xAE, 0x78},
-        {0x12, 0x7F, 0xB6, 0xA5},
-        {0x48, 0xB7, 0x4C, 0xDD}
+    private static int key[][] = {
+        {0x2B, 0x7E, 0x15, 0x16},
+        {0x28, 0xAE, 0xD2, 0xA6},
+        {0xAB, 0xF7, 0x15, 0x88},
+        {0x09, 0xCF, 0x4F, 0x3C}
     };
 
-    public void generate() {
-        
+    public static int[][] generate() {
         int w[] = key[3];
-        for(int i=1;i<=10;i++) {
+        for(int i=0;i<10;i++) {
             w = Transformation.shiftLeft(w);
             w = Transformation.changeArr(w);
             w[0] = Transformation.rcon(w[0], i);
@@ -18,9 +17,7 @@ public class KeyGen {
                 w = Transformation.xorArr(key[key.length-4], w);
                 key = Transformation.extendKey(key, w);
             }
-            
         }
-        
-
+        return key;
     }
 }

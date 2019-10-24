@@ -45,8 +45,26 @@ public class Transformation {
         return w;
     }
 
+    public static char[] shiftLeft(char[] w) {
+        char a = w[0];
+        w[0] = w[1];
+        w[1] = w[2];
+        w[2] = w[3];
+        w[3] = a;
+        return w;
+    }
+
     public static int[] shiftRight(int[] w) {
         int a = w[0];
+        w[0] = w[3];
+        w[1] = a;
+        w[2] = w[1];
+        w[3] = w[2];
+        return w;
+    }
+
+    public static char[] shiftRight(char[] w) {
+        char a = w[0];
         w[0] = w[3];
         w[1] = a;
         w[2] = w[1];
@@ -68,6 +86,22 @@ public class Transformation {
         w[2] = key[2] ^ w[2];
         w[3] = key[3] ^ w[3];
         return w;
+    }
+
+    public static char[][] splitMessage(String text) {
+        char a[] = text.toCharArray();
+        if(text.length()%16==0) length = text.length()/16;
+        else length = text.length()/16 + 1;
+        char[][] message = new char[length*4][4];
+        for(int i=0;i<a.length/4;i++) {
+            message[i] = Arrays.copyOfRange(a, i*4, (i+1)*4);
+        }
+        if(a.length%4>0) {
+            for(int i=0;i<a.length%4;i++) {
+                message[a.length/4][i] = a[a.length-a.length%4+i];
+            }
+        }
+        return message;
     }
 
 
