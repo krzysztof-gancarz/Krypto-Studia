@@ -23,22 +23,12 @@ public class Transformation {
     };
     private static int rconArray[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a};
 
-
     public static int change(int number) {
         int x,y;
         y=number%16;
         number=number/16;
         x=number%16;
         return box[x][y];
-    }
-
-    public static char change(char character) {
-        int x,y;
-        int number = (int)character;
-        y=number%16;
-        number=number/16;
-        x=number%16;
-        return (char)box[x][y];
     }
 
     public static int[] changeArr(int[] w) {
@@ -118,7 +108,7 @@ public class Transformation {
         return message;
     }
 
-    public static int multiply(int w, int a) {
+    public static int multiply(int w, int a) { // XDDDDDDDDDDDDDDDDDDDDDDDDD
         if (w>=0x80)
             if (a==2) w = (w<<1)&0xFF ^ 0x1B;
             else w = (w<<1)&0xFF ^ 0x1B ^ w;
