@@ -1,77 +1,62 @@
 package main.java;
 
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
-import java.awt.Graphics;
-
-public class TextFieldEx extends JFrame {
-
-    private static final long serialVersionUID = -5624404136485946868L;
-
-    String userWord = "";
-    JTextField userInput;
-    JTextField userInput1;
-    JTextField encryptedInput;
-    JTextField decryptedInput;
+import java.util.*;
+public class TextFieldEx {
+    JFrame frame;
+    JPanel buttonPane, fieldsPanel;
+    JLabel tekst, klucz;
+    JTextField tField, kField;
+    JButton ok, cancel;
 
     public TextFieldEx() {
-        //First okienko
-        JFrame jf = new JFrame("Fajny program");
-        JPanel panel = new JPanel();
-        JLabel jl = new JLabel("Wprowadz tekst");
-        JButton jButton = new JButton("Klik");
+        frame = new JFrame("Krypto");
+        frame.setSize(600,600);
+        buttonPane = new JPanel();
+        fieldsPanel = new JPanel();
+        tekst = new JLabel("Wprowadz tekst");
+        klucz = new JLabel("Podaj klucz");
+        tField = new JTextField("");
+        kField = new JTextField("");
+        ok = new JButton("Encryption");
+        cancel = new JButton("Decryption");
+
+        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
+        buttonPane.setLayout(new FlowLayout());
+
         
-        userInput = new JTextField("", 30);
-        //encryptedInput  new JTextField(*encryptedInput*, 30)
-        //decryptedInput  new JTextField(*decryptedInput*, 30)
+        fieldsPanel.add(tekst);
+        fieldsPanel.add(tField);
+        fieldsPanel.add(klucz);
+        fieldsPanel.add(kField);
+        buttonPane.add(ok);
+        buttonPane.add(cancel);
+        frame.add(fieldsPanel, BorderLayout.PAGE_START);
+        frame.add(buttonPane, BorderLayout.PAGE_END);
 
-        //Second okienko
-        JPanel panel1 = new JPanel();
-        JLabel jl1 = new JLabel("Wprowadz klucz");
-        JButton jButton1 = new JButton("Klik klucz");
-        userInput1 = new JTextField("", 30);
-
-        jButton.addActionListener((e) -> {
-            submitAction();
-        });
-
-        jButton1.addActionListener((e) -> {
-            actionPerformed();
-        });
-
-        jf.setSize(500, 500);
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.add(panel);
-        panel.add(jl);
-        panel.add(userInput);
-        panel.add(jButton);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.pack();
+        frame.setVisible(true);
+        
  
-        panel1.add(jl1);
-        panel1.add(userInput1);
-        panel.add(jButton1);
-    }
-
-    private String submitAction() {
-        userWord = userInput.getText();
-        // do something with the variabe userWord here (print it to the console, etc.)
-        System.out.println("test: " + userWord);
-        return userWord;
-    }
-
-    public void actionPerformed() {
-        userWord = userInput.getText();
-        System.out.println("test1: " + userWord);
         
+    
+
+
+    
     }
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
+    public String actionPerformed() {
+        String userInput = tField.getText();
+        System.out.println(userInput);
+        return userInput;
+    }
+    
+    
+    public static void main(String args[]) {
         new TextFieldEx();
+        
+        
     }
 }
