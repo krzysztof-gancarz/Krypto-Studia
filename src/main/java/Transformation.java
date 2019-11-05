@@ -90,7 +90,7 @@ public class Transformation {
     }
     public static int[][] extendKey(int[][] key, int[] w) {
         int[][] extendedKey = Arrays.copyOf(key, key.length + 1);
-        extendedKey[extendedKey.length - 1] = w;
+        extendedKey[extendedKey.length - 1] = w.clone();
         return extendedKey;
     }
     public static int[] xorArr(int[] key, int[] w ) {
@@ -139,5 +139,59 @@ public class Transformation {
         w[2]= (char)r[2];
         w[3]= (char)r[3];
     }
+
+    public static char[][] shiftRowLeft(char[][] message) {
+        char a;
+        for(int i=0; i<message.length/4;i++)
+        {
+            a = message[(i*4)+0][1];
+            message[(i*4)+0][1] = message[(i*4)+1][1];
+            message[(i*4)+1][1] = message[(i*4)+2][1];
+            message[(i*4)+2][1] = message[(i*4)+3][1];
+            message[(i*4)+3][1] = a;
+
+            a = message[(i*4)+0][2];
+            message[(i*4)+0][2] = message[(i*4)+2][2];
+            message[(i*4)+2][2] = a;
+            a = message[(i*4)+1][2];
+            message[(i*4)+1][2] = message[(i*4)+3][2];
+            message[(i*4)+3][2] = a;
+
+            a=message[(i*4)+3][3];
+            message[(i*4)+3][3] = message[(i*4)+2][3];
+            message[(i*4)+2][3] = message[(i*4)+1][3];
+            message[(i*4)+1][3] = message[(i*4)+0][3];
+            message[(i*4)+0][3] = a;
+        }
+        return message;
+
+    }
+
+    public static char[][] shiftRowRight(char[][] message) {
+        for(int i=0; i<message.length/4;i++)
+        {
+            char a = message[(i*4)+0][3];
+            message[(i*4)+0][3] = message[(i*4)+1][3];
+            message[(i*4)+1][3] = message[(i*4)+2][3];
+            message[(i*4)+2][3] = message[(i*4)+3][3];
+            message[(i*4)+3][3] = a;
+
+            a = message[(i*4)+0][2];
+            message[(i*4)+0][2] = message[(i*4)+2][2];
+            message[(i*4)+2][2] = a;
+            a = message[(i*4)+1][2];
+            message[(i*4)+1][2] = message[(i*4)+3][2];
+            message[(i*4)+3][2] = a;
+
+            a=message[(i*4)+3][1];
+            message[(i*4)+3][1] = message[(i*4)+2][1];
+            message[(i*4)+2][1] = message[(i*4)+1][1];
+            message[(i*4)+1][1] = message[(i*4)+0][1];
+            message[(i*4)+0][1] = a;
+        }
+        return message;
+
+    }
+
 
 }

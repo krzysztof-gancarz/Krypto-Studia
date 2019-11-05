@@ -8,16 +8,19 @@ public class KeyGen {
     };
 
     public static int[][] generate() {
-        int w[] = key[3];
+        int w[] = key[3].clone();
         for(int i=0;i<10;i++) {
             w = Transformation.shiftLeft(w);
             w = Transformation.changeArr(w);
             w[0] = Transformation.rcon(w[0], i);
-            for(int j=0; j<4;j++) {
-                w = Transformation.xorArr(key[key.length-4], w);
-                key = Transformation.extendKey(key, w);
+            for(int j=0;j<4;j++)
+            {
+            w = Transformation.xorArr(key[key.length-4], w);
+            key = Transformation.extendKey(key, w);
             }
+            
         }
+        
         return key;
     }
 }
