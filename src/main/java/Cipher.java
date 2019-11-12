@@ -24,12 +24,6 @@ public class Cipher {
             
             
             message = Transformation.shiftRowLeft(message);
-            for (char[] cs : message) {
-                for (char cr : cs) {
-                    System.out.println(Integer.toHexString((int)cr));
-                }
-                
-            }
             for(int i=0;i<message.length;i++) Transformation.mixColumns(message[i]);
             
             for(int i=0;i<message.length;i++) {
