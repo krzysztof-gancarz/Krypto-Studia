@@ -1,4 +1,4 @@
-package guiiii;
+package main.java;
 
 import java.awt.EventQueue;
 
