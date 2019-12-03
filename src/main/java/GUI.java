@@ -108,7 +108,8 @@ public class GUI {
 			public void keyPressed(KeyEvent e) {
 				
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-				      outcome = textField_Encryption.getText();				//GET TEXT FROM USER
+					  outcome = textField_Encryption.getText();				//GET TEXT FROM USER
+					  git p
 				}
 				
 			}
