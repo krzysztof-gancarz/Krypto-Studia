@@ -266,5 +266,17 @@ public class Transformation {
 
     }
 
+    public static char[] toCharArray(char[][] message) {
+        char[] array = new char[message.length*4];
+        int i = 0;
+        for (char[] line : message) {
+            for (char c : line) {
+                array[i] = c;
+                i++;
+            }
+        }
+        return array;
+    }
+
 
 }

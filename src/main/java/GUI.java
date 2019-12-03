@@ -2,7 +2,7 @@ package main.java;
 
 import java.awt.EventQueue;
 import java.io.*;
-
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -233,8 +233,13 @@ public class GUI {
 			        try {
 			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
 			              new FileInputStream(file)));
-			          
-			          whereInput.read(input, "READING FILE");
+					  String message = input.lines().collect(Collectors.joining("\n"));
+					  char[][] charMessage=Cipher.encodeMessage(message);
+					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
+					  System.out.println(encodedMessage);
+					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
+					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
+			          input.close();
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
