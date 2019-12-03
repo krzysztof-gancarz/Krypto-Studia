@@ -1,9 +1,9 @@
 package main.java;
 
 public class Cipher {
-    public static char[][] encodeMessage(String text) {
+    public static char[][] encodeMessage(String text, String keyString) {
         char[][] message = Transformation.splitMessage(text);
-        int[][] key = KeyGen.generate();
+        int[][] key = KeyGen.generate(keyString);
 
         // runda inicjujaca
         for (int i = 0; i < message.length; i++) {
@@ -46,9 +46,9 @@ public class Cipher {
         return message;
     }
 
-    public static char[][] decodeMessage(char[][] message) {
-
-        int[][] key = KeyGen.generate();
+    public static char[][] decodeMessage(String text, String keyString) {
+        char[][] message = Transformation.splitMessage(text);
+        int[][] key = KeyGen.generate(keyString);
 
         // Runda kończąca
         for (int i = 0; i < message.length; i++) {

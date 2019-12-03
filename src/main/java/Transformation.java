@@ -278,5 +278,23 @@ public class Transformation {
         return array;
     }
 
+    public static int[][] toHexKey(String stringKey) {
+        int[][] key = new int[4][4];
+        for (int i=0; i<4; i++)
+        {
+            for (int j=0; j<4; j++)
+            {
+                if((int)stringKey.charAt(i*4+j) > 47 && (int)stringKey.charAt(i*4+j) < 58) {
+                    key[j][i] = (int)stringKey.charAt(i*4+j) - 48;
+                }
+                if((int)stringKey.charAt(i*4+j) > 64 && (int)stringKey.charAt(i*4+j) < 71) {
+                    key[j][i] = (int)stringKey.charAt(i*4+j) - 55;
+                }
+            }
+        }
+            
+        return key;
+    }
+
 
 }

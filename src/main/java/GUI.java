@@ -108,8 +108,9 @@ public class GUI {
 			public void keyPressed(KeyEvent e) {
 				
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					  outcome = textField_Encryption.getText();				//GET TEXT FROM USER
-					  git p
+					
+					String encodedMessage = new String(Transformation.toCharArray(Cipher.encodeMessage(textField_Encryption.getText().toString(), textField_Key.getText().toString())));
+					textField_EncryptedText.setText(encodedMessage);				//GET TEXT FROM USER
 				}
 				
 			}
@@ -196,7 +197,8 @@ public class GUI {
 					
 					if ((!textField_Key.getText().isEmpty() && !textField_Decryption.getText().isEmpty()) )
 					{
-						textField_DecryptedText.setText(decryptedText);
+						String decodedMessage = new String(Transformation.toCharArray(Cipher.decodeMessage(textField_Decryption.getText().toString(), textField_Key.getText().toString())));
+						textField_DecryptedText.setText(decodedMessage);
 					}
 					
 					
@@ -234,12 +236,12 @@ public class GUI {
 			        try {
 			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
 			              new FileInputStream(file)));
-			          /*
-					  String message = input.lines().collect(Collectors.joining("\n"));
-					  char[][] charMessage=Cipher.encodeMessage(message);
+			          
+					  /*String message = input.lines().collect(Collectors.joining("\n"));
+					  char[][] charMessage=Cipher.encodeMessage(message, textField_Key.getText().toString());
 					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
 					  System.out.println(encodedMessage);
-					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
+					  char[][] decodedMessage = Cipher.decodeMessage(charMessage,  textField_Key.getText().toString());
 					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
 			          input.close(); */
 			        } catch (Exception e) {
