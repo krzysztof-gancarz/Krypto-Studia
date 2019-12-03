@@ -220,7 +220,7 @@ public class GUI {
 		textField_DecryptedText.setBounds(10, 236, 391, 20);
 		frame.getContentPane().add(textField_DecryptedText);
 		
-		JButton btnReadFromFile = new JButton("Read from file");
+		JButton btnReadFromFile = new JButton("Encrypt");
 		btnReadFromFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent c) {
@@ -234,13 +234,14 @@ public class GUI {
 			        try {
 			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
 			              new FileInputStream(file)));
+			          /*
 					  String message = input.lines().collect(Collectors.joining("\n"));
 					  char[][] charMessage=Cipher.encodeMessage(message);
 					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
 					  System.out.println(encodedMessage);
 					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
 					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
-			          input.close();
+			          input.close(); */
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
@@ -253,5 +254,38 @@ public class GUI {
 		});
 		btnReadFromFile.setBounds(411, 27, 113, 23);
 		frame.getContentPane().add(btnReadFromFile);
+		
+		JButton btnDecrypt = new JButton("Decrypt");
+		btnDecrypt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFileChooser fc = new JFileChooser();
+
+				   
+			      int returnVal = fc.showOpenDialog(frame);
+			      if (returnVal == JFileChooser.APPROVE_OPTION) {
+			        File file = fc.getSelectedFile();
+			        try {
+			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
+			              new FileInputStream(file)));
+			          /*
+					  String message = input.lines().collect(Collectors.joining("\n"));
+					  char[][] charMessage=Cipher.encodeMessage(message);
+					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
+					  System.out.println(encodedMessage);
+					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
+					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
+			          input.close(); */
+			        } catch (Exception e) {
+			          e.printStackTrace();
+			        }
+			      } else {
+			        System.out.println("Operation is CANCELLED ");
+			      }
+				
+			}
+		});
+		btnDecrypt.setBounds(411, 75, 113, 23);
+		frame.getContentPane().add(btnDecrypt);
 	}
 }
