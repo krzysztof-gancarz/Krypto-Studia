@@ -1,13 +1,18 @@
 package main.java;
 
 import java.awt.EventQueue;
+import java.io.*;
+
 
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,6 +20,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI {
 
