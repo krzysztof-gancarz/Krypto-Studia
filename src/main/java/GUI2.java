@@ -233,8 +233,10 @@ public class GUI2 {
 			        try {
 			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
 			              new FileInputStream(file)));
-			          
-			          whereInput.read(input, "READING FILE");
+			          if(whereInput != null)
+			        	  whereInput.read(input, "READING FILE");
+			          else
+			        	  textField_Encryption.read(input, "READING FILE");
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
