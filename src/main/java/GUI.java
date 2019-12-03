@@ -221,7 +221,7 @@ public class GUI {
 		textField_DecryptedText.setColumns(10);
 		textField_DecryptedText.setBounds(10, 236, 391, 20);
 		frame.getContentPane().add(textField_DecryptedText);
-		
+		/*
 		JButton btnReadFromFile = new JButton("Encrypt");
 		btnReadFromFile.addActionListener(new ActionListener() {
 			@Override
@@ -243,7 +243,7 @@ public class GUI {
 					  System.out.println(encodedMessage);
 					  char[][] decodedMessage = Cipher.decodeMessage(charMessage,  textField_Key.getText().toString());
 					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
-			          input.close(); */
+			          input.close(); 
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
@@ -277,7 +277,7 @@ public class GUI {
 					  System.out.println(encodedMessage);
 					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
 					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
-			          input.close(); */
+			          input.close(); 
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
@@ -289,5 +289,7 @@ public class GUI {
 		});
 		btnDecrypt.setBounds(411, 75, 113, 23);
 		frame.getContentPane().add(btnDecrypt);
+
+		*/
 	}
 }
