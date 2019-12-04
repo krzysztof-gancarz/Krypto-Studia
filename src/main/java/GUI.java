@@ -39,11 +39,11 @@ public class GUI {
 	
 	private JTextField whereInput;
 	
-	private String outcome;
+	
 	private String userKey = null;
-	private String encryptedText = "aaaa";
+	private String encryptedText = null;
 	private String encryptedTextToDecrypt;
-	private String decryptedText = "bbbb";
+	private String decryptedText = null;
 	
 
 	/**
