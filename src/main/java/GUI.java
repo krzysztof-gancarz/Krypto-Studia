@@ -2,6 +2,8 @@ package main.java;
 
 import java.awt.EventQueue;
 import java.io.*;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
@@ -221,7 +223,7 @@ public class GUI {
 		textField_DecryptedText.setColumns(10);
 		textField_DecryptedText.setBounds(10, 236, 391, 20);
 		frame.getContentPane().add(textField_DecryptedText);
-		/*
+		
 		JButton btnReadFromFile = new JButton("Encrypt");
 		btnReadFromFile.addActionListener(new ActionListener() {
 			@Override
@@ -234,16 +236,16 @@ public class GUI {
 			      if (returnVal == JFileChooser.APPROVE_OPTION) {
 			        File file = fc.getSelectedFile();
 			        try {
-			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
-			              new FileInputStream(file)));
 			          
-					  /*String message = input.lines().collect(Collectors.joining("\n"));
+					  byte[] byteMessage = Files.readAllBytes(file.toPath());
+					  String message = new String(byteMessage, "UTF-8");
+					  
 					  char[][] charMessage=Cipher.encodeMessage(message, textField_Key.getText().toString());
 					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
-					  System.out.println(encodedMessage);
-					  char[][] decodedMessage = Cipher.decodeMessage(charMessage,  textField_Key.getText().toString());
-					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
-			          input.close(); 
+					  byte[] encodedbytes = encodedMessage.getBytes();
+					  FileOutputStream saveHash = new FileOutputStream(file.getName() + ".hash");
+					  saveHash.write(encodedbytes);
+					  saveHash.close();
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
@@ -268,16 +270,22 @@ public class GUI {
 			      if (returnVal == JFileChooser.APPROVE_OPTION) {
 			        File file = fc.getSelectedFile();
 			        try {
-			          BufferedReader input = new BufferedReader(new InputStreamReader(		//KEY TO EXPLORE WINDOWS FILES
-			              new FileInputStream(file)));
-			          /*
-					  String message = input.lines().collect(Collectors.joining("\n"));
-					  char[][] charMessage=Cipher.encodeMessage(message);
-					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
-					  System.out.println(encodedMessage);
-					  char[][] decodedMessage = Cipher.decodeMessage(charMessage);
-					  System.out.println(new String(Transformation.toCharArray(decodedMessage)));
-			          input.close(); 
+						byte[] byteMessage = Files.readAllBytes(file.toPath());
+						String message = new String(byteMessage, "UTF-8");
+						
+						char[][] charMessage=Cipher.decodeMessage(message, textField_Key.getText().toString());
+						String decodedMessage = new String(Transformation.toCharArray(charMessage));
+						byte[] decodedbytes = decodedMessage.getBytes();
+						int numberOfZeros = 0;
+						for (int i=decodedbytes.length-1; i > 0; i--) {
+							if(decodedbytes[i] == 0) {
+								numberOfZeros++;
+							}
+							else break;
+						}
+						FileOutputStream saveHash = new FileOutputStream(file.getName().substring(0, file.getName().length()-5));
+						saveHash.write(Arrays.copyOfRange(decodedbytes, 0, decodedbytes.length-numberOfZeros));
+						saveHash.close();
 			        } catch (Exception e) {
 			          e.printStackTrace();
 			        }
@@ -290,6 +298,6 @@ public class GUI {
 		btnDecrypt.setBounds(411, 75, 113, 23);
 		frame.getContentPane().add(btnDecrypt);
 
-		*/
+		
 	}
 }

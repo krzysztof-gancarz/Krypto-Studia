@@ -85,6 +85,7 @@ public class Cipher {
                 message[i][j] = (char) ((int) message[i][j] ^ key[i % 4][j]);
             }
         }
+        
         return message;
     }
 }
