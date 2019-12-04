@@ -133,7 +133,7 @@ public class GUI {
 		});
 		textField_Key.setFont(new Font("Calibri Light", Font.PLAIN, 13));
 		textField_Key.setBackground(Color.CYAN);
-		textField_Key.addKeyListener(new KeyAdapter() {
+		/*textField_Key.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -146,7 +146,7 @@ public class GUI {
 					
 				}
 			}
-		});
+		});*/
 		
 		textField_Key.setColumns(10);
 		textField_Key.setBounds(10, 76, 391, 20);
