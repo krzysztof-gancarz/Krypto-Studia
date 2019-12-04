@@ -277,19 +277,20 @@ public class Transformation {
         }
         return array;
     }
-
+    public static int hexValue(char c) {
+        if((int)c > 47 && (int)c < 58) {
+            return (int)c - 48;
+        }
+        else if((int)c > 64 && (int)c < 71) {
+            return (int)c - 55;
+        }
+        return 0;
+    }
     public static int[][] toHexKey(String stringKey) {
         int[][] key = new int[4][4];
-        for (int i=0; i<4; i++)
-        {
-            for (int j=0; j<4; j++)
-            {
-                if((int)stringKey.charAt(i*4+j) > 47 && (int)stringKey.charAt(i*4+j) < 58) {
-                    key[j][i] = (int)stringKey.charAt(i*4+j) - 48;
-                }
-                if((int)stringKey.charAt(i*4+j) > 64 && (int)stringKey.charAt(i*4+j) < 71) {
-                    key[j][i] = (int)stringKey.charAt(i*4+j) - 55;
-                }
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<4; j++) {
+                key[j][i] = hexValue(stringKey.charAt((i*4+j)*2))*16 + hexValue(stringKey.charAt((i*4+j)*2+1));
             }
         }
             
