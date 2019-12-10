@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import java.awt.BorderLayout;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -29,6 +31,9 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 
 public class GUI {
 
@@ -321,6 +326,18 @@ public class GUI {
 		textField_1.setBackground(Color.CYAN);
 		textField_1.setBounds(545, 180, 123, 20);
 		frame.getContentPane().add(textField_1);
+		
+		try {									//IMAGE
+		BufferedImage myPicture = ImageIO.read(new File("image.png"));
+		
+		JLabel panel = new JLabel(new ImageIcon(myPicture));
+		
+		//add(picLabel);
+		panel.setBounds(10, 267, 729, 83);
+		frame.getContentPane().add(panel);
+		} catch (Exception e) {
+	          e.printStackTrace();
+		}
 
 		
 	}
