@@ -47,6 +47,8 @@ public class GUI {
 	private JTextField whereInput;
 	
 	
+	String FileNameFromUserDecrypt;
+	String FileNameFromUserEncrypt;
 	private String userKey = null;
 	private String encryptedText = null;
 	private String encryptedTextToDecrypt;
@@ -250,7 +252,7 @@ public class GUI {
 					  byte[][] encodedMessage=Cipher.encodeMessage(byteMessage, textField_Key.getText().toString());
 			
 					  byte[] encodedbytes = Transformation.toByteArray(encodedMessage);
-					  FileOutputStream saveHash = new FileOutputStream(file.getName() + ".hash");
+					  FileOutputStream saveHash = new FileOutputStream(FileNameFromUserEncrypt + file.getName().substring(file.getName().length()-4, file.getName().length()) + ".hash");
 					  saveHash.write(encodedbytes);
 					  saveHash.close();
 			        } catch (Exception e) {
@@ -286,7 +288,10 @@ public class GUI {
 							}
 							else break;
 						}
-						FileOutputStream saveHash = new FileOutputStream(file.getName().substring(0, file.getName().length()-5));
+						String ext = file.getName().substring(file.getName().length()-9, file.getName().length()-5);
+						
+
+						FileOutputStream saveHash = new FileOutputStream(FileNameFromUserDecrypt + ext                /*file.getName().substring(0, file.getName().length()-5)*/);
 						saveHash.write(Arrays.copyOfRange(decodedbytes, 0, decodedbytes.length-numberOfZeros));
 						saveHash.close();
 			        } catch (Exception e) {
@@ -312,12 +317,35 @@ public class GUI {
 		frame.getContentPane().add(label);
 		
 		textField = new JTextField();
+
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyCode() == KeyEvent.VK_ENTER){
+						FileNameFromUserEncrypt = textField.getText().toString();				//GET ENCRYPTED TEXT FROM USER
+					
+					}
+				}
+			});
+
 		textField.setBackground(Color.CYAN);
 		textField.setBounds(545, 76, 123, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+
+		textField_1.addKeyListener(new KeyAdapter() {
+		@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					FileNameFromUserDecrypt = textField_1.getText().toString();				//GET ENCRYPTED TEXT FROM USER
+				
+				}
+			}
+		});
+
+
 		textField_1.setColumns(10);
 		textField_1.setBackground(Color.CYAN);
 		textField_1.setBounds(545, 180, 123, 20);
