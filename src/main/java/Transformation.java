@@ -62,7 +62,7 @@ public class Transformation {
     }
     public static byte change(byte character) {
         int x,y;
-        int number = (int)character;
+        int number = character & 0xFF;
         y=number%16;
         number=number/16;
         x=number%16;
