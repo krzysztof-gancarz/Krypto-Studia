@@ -1,7 +1,7 @@
 package main.java;
 
 public class Cipher {
-    /*public static char[][] encodeMessage(String text, String keyString) {
+    public static char[][] encodeMessage(String text, String keyString) {
         char[][] message = Transformation.splitMessage(text);
         int[][] key = KeyGen.generate(keyString);
 
@@ -44,16 +44,17 @@ public class Cipher {
             }
         }
         return message;
-    }*/
+    }
 
     public static byte[][] encodeMessage(byte[] text, String keyString) {
         byte[][] message = Transformation.splitMessage(text);
-        byte[][] key = KeyGen.generate(keyString);
+        byte[][] key = KeyGen.generatebyte(keyString);
 
         // runda inicjujaca
         for (int i = 0; i < message.length; i++) {
             for (int j = 0; j < 4; j++) {
                 message[i][j] = (byte)( message[i][j] ^ key[i % 4][j]);
+                
             }
         }
 
@@ -62,13 +63,21 @@ public class Cipher {
             for (int i = 0; i < message.length; i++) {
                 for (int j = 0; j < 4; j++) {
                     message[i][j] = Transformation.change(message[i][j]);
+                    
                 }
             }
 
             message = Transformation.shiftRowLeft(message);
-            for (int i = 0; i < message.length; i++)
+            
+            for (int i = 0; i < message.length; i++){
                 Transformation.mixColumns(message[i]);
-
+            }
+                
+            /*for (byte[] bs : message) {
+                for (byte tak : bs) {
+                    System.out.println(tak);
+                }
+            }*/
             for (int i = 0; i < message.length; i++) {
                 for (int j = 0; j < 4; j++) {
                     message[i][j] = (byte) ( message[i][j] ^ key[i % 4 + iteration * 4][j]);
@@ -91,9 +100,52 @@ public class Cipher {
         return message;
     }
 
+    public static char[][] decodeMessage(String text, String keyString) {
+        char[][] message = Transformation.splitMessage(text);
+        int[][] key = KeyGen.generate(keyString);
+
+        // Runda kończąca
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                message[i][j] = (char) ((int) message[i][j] ^ key[i % 4 + 10 * 4][j]);
+            }
+        }
+        message = Transformation.shiftRowRight(message);
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                message[i][j] = Transformation.reverseChange(message[i][j]);
+            }
+        }
+        // rundy szyfrujace
+        for (int iteration = 9; iteration > 0; iteration--) {
+            for (int i = 0; i < message.length; i++) {
+                for (int j = 0; j < 4; j++) {
+                    message[i][j] = (char) ((int) message[i][j] ^ key[i % 4 + iteration * 4][j]);
+                }
+            }
+            for (int i = 0; i < message.length; i++)
+                Transformation.mixColumnsReverse(message[i]);
+            message = Transformation.shiftRowRight(message);
+            for (int i = 0; i < message.length; i++) {
+                for (int j = 0; j < 4; j++) {
+                    message[i][j] = Transformation.reverseChange(message[i][j]);
+                }
+            }
+
+        }
+        // runda inicjująca
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                message[i][j] = (char) ((int) message[i][j] ^ key[i % 4][j]);
+            }
+        }
+        
+        return message;
+    }
+
     public static byte[][] decodeMessage(byte[] text, String keyString) {
         byte[][] message = Transformation.splitMessage(text);
-        byte[][] key = KeyGen.generate(keyString);
+        byte[][] key = KeyGen.generatebyte(keyString);
 
         // Runda kończąca
         for (int i = 0; i < message.length; i++) {
