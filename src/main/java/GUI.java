@@ -46,6 +46,8 @@ public class GUI {
 	private String encryptedText = null;
 	private String encryptedTextToDecrypt;
 	private String decryptedText = null;
+	private JTextField textField;
+	private JTextField textField_1;
 	
 
 	/**
@@ -81,7 +83,7 @@ public class GUI {
 		frame = new JFrame("Encrypt your text!");
 		frame.getContentPane().setFont(new Font("Calibri Light", Font.PLAIN, 13));
 		frame.getContentPane().setBackground(Color.ORANGE);
-		frame.setBounds(100, 100, 550, 400);
+		frame.setBounds(100, 100, 777, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -256,7 +258,7 @@ public class GUI {
 				
 			}
 		});
-		btnReadFromFile.setBounds(411, 27, 113, 23);
+		btnReadFromFile.setBounds(545, 27, 123, 23);
 		frame.getContentPane().add(btnReadFromFile);
 		
 		JButton btnDecrypt = new JButton("Decrypt");
@@ -295,8 +297,30 @@ public class GUI {
 				
 			}
 		});
-		btnDecrypt.setBounds(411, 75, 113, 23);
+		btnDecrypt.setBounds(545, 131, 123, 23);
 		frame.getContentPane().add(btnDecrypt);
+		
+		JLabel lblNameYourFile = new JLabel("Name your file here");
+		lblNameYourFile.setFont(new Font("Calibri", Font.PLAIN, 15));
+		lblNameYourFile.setBounds(544, 59, 148, 14);
+		frame.getContentPane().add(lblNameYourFile);
+		
+		JLabel label = new JLabel("Name your file here");
+		label.setFont(new Font("Calibri", Font.PLAIN, 15));
+		label.setBounds(545, 163, 148, 14);
+		frame.getContentPane().add(label);
+		
+		textField = new JTextField();
+		textField.setBackground(Color.CYAN);
+		textField.setBounds(545, 76, 123, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBackground(Color.CYAN);
+		textField_1.setBounds(545, 180, 123, 20);
+		frame.getContentPane().add(textField_1);
 
 		
 	}
