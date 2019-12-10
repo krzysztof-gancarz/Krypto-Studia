@@ -245,11 +245,11 @@ public class GUI {
 			        try {
 			          
 					  byte[] byteMessage = Files.readAllBytes(file.toPath());
-					  String message = new String(byteMessage, "UTF-8");
+					 
 					  
-					  char[][] charMessage=Cipher.encodeMessage(message, textField_Key.getText().toString());
-					  String encodedMessage = new String(Transformation.toCharArray(charMessage));
-					  byte[] encodedbytes = encodedMessage.getBytes();
+					  byte[][] encodedMessage=Cipher.encodeMessage(byteMessage, textField_Key.getText().toString());
+			
+					  byte[] encodedbytes = Transformation.toByteArray(encodedMessage);
 					  FileOutputStream saveHash = new FileOutputStream(file.getName() + ".hash");
 					  saveHash.write(encodedbytes);
 					  saveHash.close();
@@ -259,8 +259,6 @@ public class GUI {
 			      } else {
 			        System.out.println("Operation is CANCELLED ");
 			      }
-			    
-				
 			}
 		});
 		btnReadFromFile.setBounds(545, 27, 123, 23);
@@ -278,11 +276,9 @@ public class GUI {
 			        File file = fc.getSelectedFile();
 			        try {
 						byte[] byteMessage = Files.readAllBytes(file.toPath());
-						String message = new String(byteMessage, "UTF-8");
-						
-						char[][] charMessage=Cipher.decodeMessage(message, textField_Key.getText().toString());
-						String decodedMessage = new String(Transformation.toCharArray(charMessage));
-						byte[] decodedbytes = decodedMessage.getBytes();
+						byte[][] decodedMessage=Cipher.decodeMessage(byteMessage, textField_Key.getText().toString());
+
+						byte[] decodedbytes = Transformation.toByteArray(decodedMessage);
 						int numberOfZeros = 0;
 						for (int i=decodedbytes.length-1; i > 0; i--) {
 							if(decodedbytes[i] == 0) {

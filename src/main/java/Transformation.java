@@ -51,7 +51,18 @@ public class Transformation {
         x=number%16;
         return box[x][y];
     }
-
+    public static int[] xorArr(int[] key, int[] w ) {
+        w[0] = key[0] ^ w[0];
+        w[1] = key[1] ^ w[1];
+        w[2] = key[2] ^ w[2];
+        w[3] = key[3] ^ w[3];
+        return w;
+    }
+    public static int[][] extendKey(int[][] key, int[] w) {
+        int[][] extendedKey = Arrays.copyOf(key, key.length + 1);
+        extendedKey[extendedKey.length - 1] = w.clone();
+        return extendedKey;
+    }
     public static char change(char character) {
         int x,y;
         int number = (int)character;
@@ -159,6 +170,9 @@ public class Transformation {
     public static byte rcon(byte a, int b) {
         return (byte)(a ^ rconArray[b]);
     }
+    public static int rcon(int a, int b) {
+        return a ^ rconArray[b];
+    }
     public static byte[][] extendKey(byte[][] key, byte[] w) {
         byte[][] extendedKey = Arrays.copyOf(key, key.length + 1);
         extendedKey[extendedKey.length - 1] = w.clone();
@@ -240,13 +254,36 @@ public class Transformation {
         }
         return w;
     }
+    public static void mixColumnsReverse(char[] w) {
+        int[] r = new int[4];
+        r[0]= multiply((int)w[0], 14) ^ multiply((int)w[1], 11) ^ multiply((int)w[2], 13) ^ multiply((int)w[3], 9);
+        r[1]= multiply((int)w[0], 9) ^ multiply((int)w[1], 14) ^ multiply((int)w[2], 11) ^ multiply((int)w[3], 13);
+        r[2]= multiply((int)w[0], 13) ^ multiply((int)w[1], 9) ^ multiply((int)w[2], 14) ^ multiply((int)w[3], 11);
+        r[3]= multiply((int)w[0], 11) ^ multiply((int)w[1], 13) ^ multiply((int)w[2], 9) ^ multiply((int)w[3], 14);
+        w[0]= (char)r[0];
+        w[1]= (char)r[1];
+        w[2]= (char)r[2];
+        w[3]= (char)r[3];
+    }
+
+    public static void mixColumns(char[] w) {
+        int[] r = new int[4];
+        r[0]= multiply((int)w[0], 2) ^ multiply((int)w[1], 3) ^ (int)w[2] ^ (int)w[3];
+        r[1]= multiply((int)w[1], 2) ^ multiply((int)w[2], 3) ^ (int)w[3] ^ (int)w[0];
+        r[2]= multiply((int)w[2], 2) ^ multiply((int)w[3], 3) ^ (int)w[0] ^ (int)w[1];
+        r[3]= multiply((int)w[3], 2) ^ multiply((int)w[0], 3) ^ (int)w[1] ^ (int)w[2];
+        w[0]= (char)r[0];
+        w[1]= (char)r[1];
+        w[2]= (char)r[2];
+        w[3]= (char)r[3];
+    }
 
     public static void mixColumnsReverse(byte[] w) {
         byte[] r = new byte[4];
-        r[0]= (byte)(multiply((int)w[0], 14) ^ multiply((int)w[1], 11) ^ multiply((int)w[2], 13) ^ multiply((int)w[3], 9));
-        r[1]= (byte)(multiply((int)w[0], 9) ^ multiply((int)w[1], 14) ^ multiply((int)w[2], 11) ^ multiply((int)w[3], 13));
-        r[2]= (byte)(multiply((int)w[0], 13) ^ multiply((int)w[1], 9) ^ multiply((int)w[2], 14) ^ multiply((int)w[3], 11));
-        r[3]= (byte)(multiply((int)w[0], 11) ^ multiply((int)w[1], 13) ^ multiply((int)w[2], 9) ^ multiply((int)w[3], 14));
+        r[0]= (byte)(multiply(w[0] & 0xFF, 14) ^ multiply(w[1] & 0xFF, 11) ^ multiply(w[2] & 0xFF, 13) ^ multiply(w[3] & 0xFF, 9));
+        r[1]= (byte)(multiply(w[0] & 0xFF, 9) ^ multiply(w[1] & 0xFF, 14) ^ multiply(w[2] & 0xFF, 11) ^ multiply(w[3] & 0xFF, 13));
+        r[2]= (byte)(multiply(w[0] & 0xFF, 13) ^ multiply(w[1] & 0xFF, 9) ^ multiply(w[2] & 0xFF, 14) ^ multiply(w[3] & 0xFF, 11));
+        r[3]= (byte)(multiply(w[0] & 0xFF, 11) ^ multiply(w[1] & 0xFF, 13) ^ multiply(w[2] & 0xFF, 9) ^ multiply(w[3] & 0xFF, 14));
         w[0]= r[0];
         w[1]= r[1];
         w[2]= r[2];
@@ -255,10 +292,10 @@ public class Transformation {
 
     public static void mixColumns(byte[] w) {
         byte[] r = new byte[4];
-        r[0]= (byte)(multiply((int)w[0], 2) ^ multiply((int)w[1], 3) ^ (int)w[2] ^ (int)w[3]);
-        r[1]= (byte)(multiply((int)w[1], 2) ^ multiply((int)w[2], 3) ^ (int)w[3] ^ (int)w[0]);
-        r[2]= (byte)(multiply((int)w[2], 2) ^ multiply((int)w[3], 3) ^ (int)w[0] ^ (int)w[1]);
-        r[3]= (byte)(multiply((int)w[3], 2) ^ multiply((int)w[0], 3) ^ (int)w[1] ^ (int)w[2]);
+        r[0]= (byte)(multiply(w[0] & 0xFF, 2) ^ multiply(w[1] & 0xFF, 3) ^ w[2] & 0xFF ^ w[3] & 0xFF);
+        r[1]= (byte)(multiply(w[1] & 0xFF, 2) ^ multiply(w[2] & 0xFF, 3) ^ w[3] & 0xFF ^ w[0] & 0xFF);
+        r[2]= (byte)(multiply(w[2] & 0xFF, 2) ^ multiply(w[3] & 0xFF, 3) ^ w[0] & 0xFF ^ w[1] & 0xFF);
+        r[3]= (byte)(multiply(w[3] & 0xFF, 2) ^ multiply(w[0] & 0xFF, 3) ^ w[1] & 0xFF ^ w[2] & 0xFF);
         w[0]= r[0];
         w[1]= r[1];
         w[2]= r[2];
@@ -408,6 +445,16 @@ public class Transformation {
         for (int i=0; i<4; i++) {
             for (int j=0; j<4; j++) {
                 key[j][i] = (byte)(hexValue(stringKey.charAt((i*4+j)*2))*16 + hexValue(stringKey.charAt((i*4+j)*2+1)));
+            }
+        }
+            
+        return key;
+    }
+    public static int[][] toHexKeyInt(String stringKey) {
+        int[][] key = new int[4][4];
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<4; j++) {
+                key[j][i] = hexValue(stringKey.charAt((i*4+j)*2))*16 + hexValue(stringKey.charAt((i*4+j)*2+1));
             }
         }
             
